@@ -6,17 +6,18 @@
 package com.mycompany.projetfx;
 
 
+import java.util.Enumeration;
 import javafx.application.Application;
-import javafx.event .ActionEvent;
-import javafx.event. EventHandler;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx. scene.chart.AreaChart;
-import javafx. scene.chart.Axis;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.Axis;
 import javafx.scene.chart. NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx. scene.layout.HBox;
-import javafx. scene. layout . StackPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 /**
@@ -26,21 +27,21 @@ import javafx.stage.Stage;
 public class ProjetFX extends Application {
 
     static Sortie sortie;
-    static String file = "";
+    static String file = "D:\\cours 1ère année Alès\\Informatique\\APO projet\\Fichiers GPS en CSV\\01_07_22_TL.csv";
     
     
     @Override
-    public void start (Stage primaryStage) {
+    public void start(Stage primaryStage) {
             
-        Button btn = new Button("Lire fichier");
+        Button boutonLireFichier = new Button("Lire fichier");
         Button btnPrintSortie = new Button("Print sortie");
-        Button btnHR = new Button("Pro£il HR");
-        Button btnP = new Button("Ouissance moyenne");
+        Button btnHR = new Button("Profil HR");
+        Button btnP = new Button("Puissance moyenne");
 
         VBox vbx = new VBox(5);
         HBox hboxButtons = new HBox (5);
         
-        hboxButtons.getChildren().addAll(btn , btnPrintSortie, btnHR, btnP);
+        hboxButtons.getChildren().addAll(boutonLireFichier , btnPrintSortie, btnHR, btnP);
         vbx.getChildren().add(hboxButtons);
         
 
@@ -49,7 +50,7 @@ public class ProjetFX extends Application {
         
         xAxis.setLabel("seconde");
         
-        final AreaChart<Number,Number> chart = new AreaChart<Number, Number>( xAxis,yAxis);
+        final AreaChart<Number,Number> chart = new AreaChart<>( xAxis,yAxis);
         
         chart.setCreateSymbols(false);
         
@@ -61,12 +62,12 @@ public class ProjetFX extends Application {
         
         //-------------------------------------------------------------------
         
-        btn.setOnAction((ActionEvent event) -> {
-            //System.out.println("Hello World");
+        boutonLireFichier.setOnAction((ActionEvent event) -> {
+            Enregistrement test = new Enregistrement("1,1");
             sortie = new Sortie(file);
         });
         
-        btnHR.setOnAction((event) -> {
+        btnHR.setOnAction((event) ->  {  
             XYChart.Series seriesHR = new XYChart.Series();
             
             yAxis.setLabel("bpm");
@@ -75,13 +76,12 @@ public class ProjetFX extends Application {
             sortie.fillHRseries(seriesHR);
             chart.getData().add(seriesHR);
             vbx.getChildren().add(chart);
-        }
+        });
                 
-        btnPrintSortie.SetOnAction((event)) -> {
+        btnPrintSortie.setOnAction((event) -> {
             if (sortie != null) {
                 System.out.println(sortie);
-            }
-    });
+            }});
                 
                 
                 
@@ -94,8 +94,8 @@ public class ProjetFX extends Application {
             sortie.fillPuisseries(seriesPuiss);
             chart.getData().add(seriesPuiss);
             vbx.getChildren().add(chart);
-        }
-                }
+        });
+    }
     
     public static void main(String[] args) {
         launch(args);
