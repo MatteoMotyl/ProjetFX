@@ -6,28 +6,30 @@
 package com.mycompany.projetfx;
 
 
-import java.util.Enumeration;
+import java.io.File;
+import java.net.URL;
+import java.util.Iterator;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
-import javafx.scene.chart.Axis;
 import javafx.scene.chart. NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
+
 /**
+ * 
  *
  * @author Mattéo
  */
 public class ProjetFX extends Application {
 
     static Sortie sortie;
-    static String file = "D:\\cours 1ère année Alès\\Informatique\\APO projet\\Fichiers GPS en CSV\\01_07_22_TL.csv";
+    private URL file = getClass().getClassLoader().getResource("/ressources/01_07_22_TL.csv");
     
     
     @Override
@@ -63,11 +65,13 @@ public class ProjetFX extends Application {
         //-------------------------------------------------------------------
         
         boutonLireFichier.setOnAction((ActionEvent event) -> {
-            Enregistrement test = new Enregistrement("1,1");
-            sortie = new Sortie(file);
+            FileChooser filechooser = new FileChooser();
+            File file1 = filechooser.showOpenDialog(primaryStage);
+            sortie = new Sortie(file1.getPath());
         });
         
-        btnHR.setOnAction((event) ->  {  
+        btnHR.setOnAction((event) ->  {
+
             XYChart.Series seriesHR = new XYChart.Series();
             
             yAxis.setLabel("bpm");
@@ -92,6 +96,12 @@ public class ProjetFX extends Application {
             seriesPuiss.setName("profil puissance moyenne");
             
             sortie.fillPuisseries(seriesPuiss);
+            /*Iterator iterator = seriesPuiss.getData().iterator();
+            while (iterator.hasNext()){
+                
+                iterator.next();
+            }*/
+            seriesPuiss.getData().get
             chart.getData().add(seriesPuiss);
             vbx.getChildren().add(chart);
         });

@@ -4,10 +4,7 @@
  */
 package com.mycompany.projetfx;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -19,7 +16,7 @@ import javafx.scene.chart.XYChart;
  */
 public class Sortie {
 
-    private List<Enregistrement> listeEnregistrements;
+    private List<Enregistrement> listeEnregistrements = new ArrayList<>();
 
     public Sortie(List<Enregistrement> sortie) {
         sortie = new ArrayList();
@@ -63,8 +60,12 @@ public class Sortie {
     }
 
     public void fillHRseries(XYChart.Series serie) {
-        //TODO
-
+        /*On parcourt chaque élément de listeEnregistrements et on ajoute
+        au graphique les secondes et hr pour chacune des lignes
+        */
+        for (Enregistrement enregistrement : listeEnregistrements) {
+           serie.getData().add(new XYChart.Data(enregistrement.getSeconde() , enregistrement.getHr()));   
+        }
     }
 
     /**
